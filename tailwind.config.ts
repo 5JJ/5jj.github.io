@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import { Colors } from "./color";
 
 const px0_100 = Array.from(Array(101)).reduce<{ [x: number]: string }>(
   (acc, _, i) => {
@@ -14,7 +15,9 @@ const config: Config = {
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+
   theme: {
+    colors: Colors,
     extend: {
       borderRadius: px0_100,
       backgroundImage: {
