@@ -1,5 +1,6 @@
 import type { Config } from "tailwindcss";
 import { Colors } from "./color";
+import plugin from "tailwindcss/plugin";
 
 const px0_100 = Array.from(Array(101)).reduce<{ [x: number]: string }>(
   (acc, _, i) => {
@@ -17,9 +18,9 @@ const config: Config = {
   ],
 
   theme: {
-    colors: Colors,
     extend: {
       borderRadius: px0_100,
+      colors: Colors,
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
@@ -27,6 +28,18 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    plugin(function ({ addComponents }) {
+      addComponents({
+        ".hide": {
+          display: "none",
+          width: "0px",
+          height: "0px",
+          visibility: "hidden",
+          transform: "scale(0)",
+        },
+      });
+    }),
+  ],
 };
 export default config;
