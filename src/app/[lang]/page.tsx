@@ -1,23 +1,10 @@
 import data from "../../data";
-
-type PageProps = {
-  params: {
-    lang: "kr";
-  };
-};
-
-export async function generateStaticParams() {
-  return [
-    {
-      lang: "kr",
-    },
-  ];
-}
+import { PageProps } from "./types";
 
 const Home = (props: PageProps) => {
   const { params } = props;
 
-  const dataByLang = !params.lang ? data.en : data[params.lang];
+  const dataByLang = data[params.lang].about;
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24 bg-white">

@@ -1,15 +1,11 @@
-import data from "@data/en.json";
+import data from "@data/en";
+import { withLayout } from "./_components/LayoutWrapper";
 
 const Home = () => {
   const dataByLang = data;
+  //NOTE: redirect to the /en by default?
 
-  return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24 bg-white">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        {dataByLang.test}
-      </div>
-    </main>
-  );
+  return <div>{dataByLang.about.test}</div>;
 };
 
-export default Home;
+export default withLayout(Home);
