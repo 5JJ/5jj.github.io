@@ -1,5 +1,5 @@
-import en from "./en.json";
-import kr from "./kr.json";
+import en from "./en";
+import kr from "./kr";
 
 const jsons = {
   en,

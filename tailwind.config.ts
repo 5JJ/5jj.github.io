@@ -1,5 +1,13 @@
 import type { Config } from "tailwindcss";
 
+const px0_100 = Array.from(Array(101)).reduce<{ [x: number]: string }>(
+  (acc, _, i) => {
+    acc[i] = `${i}px`;
+    return acc;
+  },
+  {}
+);
+
 const config: Config = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -8,6 +16,7 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      borderRadius: px0_100,
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
