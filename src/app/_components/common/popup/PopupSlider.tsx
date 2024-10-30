@@ -31,15 +31,6 @@ function getSlides(children?: ReactNode) {
   );
 }
 
-function useIsomorphicLayoutEffect(
-  callback: (...args: any[]) => void,
-  deps?: any[]
-) {
-  // eslint-disable-next-line
-  if (typeof window === "undefined") return useEffect(callback, deps);
-  return useLayoutEffect(callback, deps);
-}
-
 const PopupSlider = (props: PopupSliderProps) => {
   const { children, onNextClicked, onPrevClicked, initalSlide = 0 } = props;
 
@@ -97,7 +88,7 @@ const PopupSlider = (props: PopupSliderProps) => {
     sliderRef.current?.endTransition();
   };
 
-  useIsomorphicLayoutEffect(() => {
+  useLayoutEffect(() => {
     if (!containerRef.current || !wrapperRef.current) return;
 
     const slider = sliderRef.current?.init(
