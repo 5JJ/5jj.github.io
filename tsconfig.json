@@ -18,7 +18,7 @@
       }
     ],
     "paths": {
-      "@data/*": ["./src/data/*"],
+      "@constants/*": ["./src/constants/*"],
       "@images/*": ["./public/images/*"],
       "@colors": ["./colors.ts"]
     }

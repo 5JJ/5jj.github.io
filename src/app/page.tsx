@@ -1,4 +1,4 @@
-import data from "@data/l10n/en";
+import data from "@constants/l10n/en";
 import { withLayout } from "./_components/LayoutWrapper";
 
 const Home = () => {
