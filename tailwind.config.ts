@@ -10,6 +10,13 @@ const px0_100 = Array.from(Array(101)).reduce<{ [x: number]: string }>(
   {}
 );
 
+const px0_300 = Array.from(Array(301)).reduce<{ [x: number]: string }>(
+  (acc, _, i) => {
+    acc[i] = `${i}px`;
+    return acc;
+  },
+  {}
+);
 const config: Config = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -22,6 +29,9 @@ const config: Config = {
       margin: px0_100,
       padding: px0_100,
       borderRadius: px0_100,
+      borderWidth: px0_100,
+      width: px0_300,
+      minWidth: px0_300,
       colors: Colors,
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

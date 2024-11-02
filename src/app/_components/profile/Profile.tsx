@@ -27,7 +27,6 @@ const Profile = (props: ProfileProps) => {
         />
       </div>
       <div>
-        <h2>{dataByLang.hi}</h2>
         <p>{dataByLang.introduction}</p>
       </div>
     </div>
