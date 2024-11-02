@@ -1,4 +1,4 @@
-import data from "../../data";
+import data from "../../data/l10n";
 import { PageProps } from "./types";
 
 const Home = (props: PageProps) => {

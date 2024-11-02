@@ -1,7 +1,7 @@
 import Image from "next/image";
 import ProfileImage from "@images/profile.jpeg";
 import { defaultLang, SupportedLangs } from "../../types";
-import data from "../../../data";
+import data from "../../../data/l10n";
 
 type ProfileProps = {
   lang?: SupportedLangs;
@@ -27,7 +27,6 @@ const Profile = (props: ProfileProps) => {
         />
       </div>
       <div>
-        <h2>{dataByLang.hi}</h2>
         <p>{dataByLang.introduction}</p>
       </div>
     </div>
