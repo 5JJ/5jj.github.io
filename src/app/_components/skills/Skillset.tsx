@@ -1,5 +1,5 @@
 import Skill from "./Skill";
-import SkillData from "../../../data/skills";
+import SkillData from "@constants/skills";
 
 type SkillSetProps = {
   type: keyof typeof SkillData.title;

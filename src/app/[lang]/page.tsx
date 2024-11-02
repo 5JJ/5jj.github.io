@@ -1,4 +1,4 @@
-import data from "../../data/l10n";
+import data from "@constants/l10n";
 import { PageProps } from "./types";
 
 const Home = (props: PageProps) => {
