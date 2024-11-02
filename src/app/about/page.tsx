@@ -11,7 +11,7 @@ const About = () => {
   return (
     <div>
       <section>
-        <h1>HI, I'm Jeonghui Oh</h1>
+        <h1>HI, I&apos;m Jeonghui Oh</h1>
         <Profile />
       </section>
       <section>
