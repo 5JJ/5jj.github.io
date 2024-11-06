@@ -33,6 +33,7 @@ const config: Config = {
       width: px0_300,
       minWidth: px0_300,
       colors: Colors,
+      fontSize: px0_100,
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":

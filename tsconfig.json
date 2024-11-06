@@ -20,7 +20,8 @@
     "paths": {
       "@constants/*": ["./src/constants/*"],
       "@images/*": ["./public/images/*"],
-      "@colors": ["./colors.ts"]
+      "@colors": ["./colors.ts"],
+      "@utils": ["./src/utils.ts"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

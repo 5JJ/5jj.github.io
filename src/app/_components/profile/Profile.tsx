@@ -1,6 +1,6 @@
 import Image from "next/image";
 import ProfileImage from "@images/profile.jpeg";
-import { defaultLang, SupportedLangs } from "../../types";
+import { DEFAULT_LANG, SupportedLangs } from "../../types";
 import data from "@constants/l10n";
 
 type ProfileProps = {
@@ -8,7 +8,7 @@ type ProfileProps = {
 };
 
 const Profile = (props: ProfileProps) => {
-  const { lang = defaultLang } = props;
+  const { lang = DEFAULT_LANG } = props;
 
   const dataByLang = data[lang].about;
 
