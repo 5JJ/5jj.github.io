@@ -2,6 +2,14 @@ import type { Config } from "tailwindcss";
 import { Colors } from "./colors";
 import plugin from "tailwindcss/plugin";
 
+const px0_50 = Array.from(Array(51)).reduce<{ [x: number]: string }>(
+  (acc, _, i) => {
+    acc[i] = `${i}px`;
+    return acc;
+  },
+  {}
+);
+
 const px0_100 = Array.from(Array(101)).reduce<{ [x: number]: string }>(
   (acc, _, i) => {
     acc[i] = `${i}px`;
@@ -31,13 +39,19 @@ const config: Config = {
       borderRadius: px0_100,
       borderWidth: px0_100,
       width: px0_300,
+      height: px0_100,
       minWidth: px0_300,
       colors: Colors,
       fontSize: px0_100,
+      inset: px0_50,
+      gap: px0_50,
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      },
+      screens: {
+        sm: "400px",
       },
     },
   },

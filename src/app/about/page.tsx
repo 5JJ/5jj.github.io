@@ -6,12 +6,13 @@ const About = () => {
   return (
     <div>
       <section>
-        <h1>HI, I&apos;m Jeonghui Oh</h1>
         <Profile />
       </section>
-      <section>
+      <section className="bg-black backdrop-filter backdrop-blur-lg bg-opacity-30 border-black rounded-14 rounded-tl-0 relative mt-50">
         {/** TODO: add a common header  */}
-        <h2 className="text-[#ffd44c] font-bold text-20">SKILLS</h2>
+        <h2 className="text-[#ffd44c] font-bold text-30 absolute top-[-20px] left-3 ">
+          SKILLS
+        </h2>
         <SkillSet type="languages" />
         <SkillSet type="technologies" />
         <SkillSet type="soft" />

@@ -27,6 +27,7 @@ const Profile = (props: ProfileProps) => {
         />
       </div>
       <div>
+        <h1>HI, I&apos;m Jeonghui Oh</h1>
         <p>{dataByLang.introduction}</p>
       </div>
     </div>

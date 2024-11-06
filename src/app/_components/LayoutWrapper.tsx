@@ -1,6 +1,7 @@
 import { Roboto } from "next/font/google";
 import React, { PropsWithChildren, ReactElement } from "react";
 import { DEFAULT_LANG, SupportedLangs } from "../types";
+import Footer from "./footer";
 import Header from "./header";
 
 const roboto = Roboto({ subsets: ["latin"], weight: ["400", "500", "700"] });
@@ -24,6 +25,7 @@ export const LayoutWrapper = ({
             {children}
           </div>
         </main>
+        <Footer />
       </body>
     </html>
   );
