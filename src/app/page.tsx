@@ -1,5 +1,4 @@
 import data from "@constants/l10n/en";
-import { withLayout } from "./_components/LayoutWrapper";
 
 const Home = () => {
   const dataByLang = data;
@@ -8,4 +7,4 @@ const Home = () => {
   return <div>{dataByLang.about.test}</div>;
 };
 
-export default withLayout(Home);
+export default Home;

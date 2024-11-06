@@ -1,22 +1,18 @@
-import { Colors } from "@colors";
-import Button from "../_components/common/button";
-import PopupSlider from "../_components/common/popup/PopupSlider";
-import PopupSliderItem from "../_components/common/popup/PopupSliderItem";
 import { withLayout } from "../_components/LayoutWrapper";
 import Profile from "../_components/profile";
-import Skill from "../_components/skills/Skill";
 import SkillSet from "../_components/skills/Skillset";
 
 const About = () => {
   return (
     <div>
       <section>
-        <h1>HI, I&apos;m Jeonghui Oh</h1>
         <Profile />
       </section>
-      <section>
+      <section className="bg-black backdrop-filter backdrop-blur-lg bg-opacity-30 border-black rounded-14 rounded-tl-0 relative mt-50">
         {/** TODO: add a common header  */}
-        <h2>SKILLS</h2>
+        <h2 className="text-[#ffd44c] font-bold text-30 absolute top-[-20px] left-3 ">
+          SKILLS
+        </h2>
         <SkillSet type="languages" />
         <SkillSet type="technologies" />
         <SkillSet type="soft" />
