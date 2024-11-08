@@ -13,7 +13,7 @@ export const LayoutWrapper = ({
   return (
     <html lang={lang}>
       <body
-        className={`${roboto.className}  bg-[#1e1e3a] `}
+        className={`${roboto.className} bg-black_main`}
         style={{
           background:
             "linear-gradient(to bottom, transparent, #7f2727) #1e1e3a",

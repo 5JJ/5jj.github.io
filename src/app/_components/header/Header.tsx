@@ -38,6 +38,9 @@ const Header = (props: { lang?: SupportedLangs }) => {
               <HeaderItem text={title} link={href} />
             </li>
           ))}
+          <li>
+            <button onClick={() => {}}>Setting</button>
+          </li>
         </ul>
       </nav>
     </header>
