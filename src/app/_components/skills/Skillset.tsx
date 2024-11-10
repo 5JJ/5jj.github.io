@@ -15,7 +15,7 @@ const SkillSet = (props: SkillSetProps) => {
       <div className="min-w-150 flex-shrink-0 py-10 px-10 font-bold text-[1.2em]">
         {title}
       </div>
-      <ul className="flex flex-wrap ">
+      <ul className="flex flex-wrap items-center">
         {SkillData[type].map((skill) => (
           <li key={skill} className="m-2">
             <Skill text={skill} />

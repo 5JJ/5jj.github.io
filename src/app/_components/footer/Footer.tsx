@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { SupportedLangs } from "../../types";
+import ThemeSelector from "../header/ThemeSelector";
 
 type FooterProps = {
   lang?: SupportedLangs;
@@ -24,7 +25,7 @@ const Footer = (props: FooterProps) => {
   ];
 
   return (
-    <footer className="bg-black backdrop-filter backdrop-blur-lg bg-opacity-80 p-24">
+    <footer className="bg-black backdrop-filter backdrop-blur-lg bg-opacity-80 p-24 relative z-10">
       {/* 
         contact 
         TODO: replace a text with a proper icon
@@ -44,6 +45,9 @@ const Footer = (props: FooterProps) => {
           </li>
         ))}
       </ul>
+      <div>
+        <ThemeSelector />
+      </div>
     </footer>
   );
 };
