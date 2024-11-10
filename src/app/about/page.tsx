@@ -10,14 +10,14 @@ const About = () => {
         <Profile />
       </section>
       {/**ring-1 ring-black/20 */}
-      <Section title="SKILLS">
+      <Section title="SKILLS" highlight>
         <SkillSet type="languages" />
         <SkillSet type="technologies" />
         <SkillSet type="soft" />
       </Section>
       {/** TODO: hobbies - accordion style */}
-      <Section title="HOBBIES" titleColor="black_main"></Section>
-      <Section title="WORK EXPERIENCE"></Section>
+      <Section title="HOBBIES"></Section>
+      <Section title="WORK EXPERIENCE" highlight></Section>
     </div>
   );
 };

@@ -13,8 +13,7 @@ const Body = (props: PropsWithChildren<{ className?: string }>) => {
     <body
       className={classNames(
         className,
-        theme &&
-          `bg-${theme}-bg_from bg-gradient-to-b from-${theme}-bg_from to-${theme}-bg_to`
+        theme && `bg-gradient-to-b from-${theme}-bg_from to-${theme}-bg_to`
       )}
     >
       {children}

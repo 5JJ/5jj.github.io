@@ -1,6 +1,6 @@
 import type { Config } from "tailwindcss";
 import { Colors } from "./colors";
-import ThemeColors, { ColorTitle, ThemeColorExtension } from "./colors/theme";
+import Themes, { ColorTitle, ThemeColorExtension } from "./colors/theme";
 import plugin from "tailwindcss/plugin";
 
 const px0_50 = Array.from(Array(51)).reduce<{ [x: number]: string }>(
@@ -27,20 +27,14 @@ const px0_300 = Array.from(Array(301)).reduce<{ [x: number]: string }>(
   {}
 );
 
-const themeSafelists = ThemeColors.reduce<{ pattern: RegExp }[]>(
-  (acc, { title, colors }) => {
-    for (const colorTitle in colors) {
-      acc.push({
-        pattern: new RegExp(`${title}-${colorTitle}`),
-      });
-    }
+const themeTitles = Themes.map(({ title }) => title);
+const colorTitles = Object.keys(Themes[0].colors);
+const themeSafelists = {
+  pattern: new RegExp(`(${themeTitles.join("|")})-(${colorTitles.join("|")})`),
+  variants: ["hover"],
+};
 
-    return acc;
-  },
-  []
-);
-
-const themeColorExtension = ThemeColors.reduce((acc, { title, colors }) => {
+const themeColorExtension = Themes.reduce((acc, { title, colors }) => {
   acc["textColor"] = acc["textColor"] ?? {};
   acc["colors"] = acc["colors"] ?? {};
 
@@ -86,7 +80,7 @@ const config: Config = {
       },
     },
   },
-  safelist: [...themeSafelists],
+  safelist: [themeSafelists],
   plugins: [
     plugin(function ({ addComponents }) {
       addComponents({
