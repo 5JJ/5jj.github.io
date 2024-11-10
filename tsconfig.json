@@ -20,7 +20,7 @@
     "paths": {
       "@constants/*": ["./src/constants/*"],
       "@images/*": ["./public/images/*"],
-      "@colors": ["./colors.ts"],
+      "@colors/*": ["./colors/*"],
       "@utils": ["./src/utils.ts"]
     }
   },

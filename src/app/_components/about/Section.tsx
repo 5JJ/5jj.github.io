@@ -1,4 +1,4 @@
-import { Colors } from "@colors";
+import { Colors } from "../../../../colors";
 import { PropsWithChildren } from "react";
 
 type SectionProps = PropsWithChildren<{

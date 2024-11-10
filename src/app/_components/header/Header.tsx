@@ -6,10 +6,14 @@ import { useMemo } from "react";
 import { SupportedLangs } from "../../types";
 import { createLinkWithLang } from "@utils";
 import HeaderItem from "./HeaderItem";
+import { useTheme } from "../theme/ThemeContext";
 
 const Header = (props: { lang?: SupportedLangs }) => {
   const { lang } = props;
+
   const pathname = usePathname();
+  const { theme } = useTheme();
+
   const menuItems = useMemo(() => {
     return [
       {
@@ -29,7 +33,7 @@ const Header = (props: { lang?: SupportedLangs }) => {
         <ul className="flex justify-end pr-20">
           {menuItems.map(({ title, href }) => (
             <li
-              className={classNames("ml-20", {
+              className={classNames("ml-20 text-16", {
                 "text-white": pathname === href,
                 "font-bold": pathname === href,
               })}
