@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { SupportedLangs } from "../../types";
-import ThemeSelector from "../header/ThemeSelector";
+import ThemeSelector from "../header/themeSelector/ThemeSelector";
 
 type FooterProps = {
   lang?: SupportedLangs;

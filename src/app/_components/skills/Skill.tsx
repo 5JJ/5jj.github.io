@@ -1,5 +1,7 @@
+"use client";
+
 import Image, { StaticImageData } from "next/image";
-import { PropsWithChildren } from "react";
+import { useTheme } from "../theme/ThemeContext";
 
 type SkillProps = {
   text: string;
@@ -9,8 +11,12 @@ type SkillProps = {
 const Skill = (props: SkillProps) => {
   const { text, icon } = props;
 
+  const { theme } = useTheme();
+
   return (
-    <div className="border-1 px-10 py-6 rounded-2 border-black_main hover:text-[#f5f5dc] hover:bg-black_main ">
+    <div
+      className={`border-1 px-10 py-6 rounded-2 border-black_main hover:text-${theme}-point_sub hover:bg-black_main`}
+    >
       {!!icon && <Image src={icon} alt={text} />}
       <span>{text}</span>
     </div>

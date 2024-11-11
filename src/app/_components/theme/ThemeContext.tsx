@@ -35,7 +35,7 @@ export const ThemeProvider = (props: PropsWithChildren) => {
         return savedTheme as ThemeNames;
       }
 
-      return "theme1";
+      return defaultTheme;
     };
     setTheme(getSavedTheme());
   }, []);
