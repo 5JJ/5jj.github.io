@@ -20,6 +20,7 @@
     "paths": {
       "@constants/*": ["./src/constants/*"],
       "@images/*": ["./public/images/*"],
+      "@icons/*": ["./public/icons/*"],
       "@colors/*": ["./colors/*"],
       "@utils": ["./src/utils.ts"]
     }

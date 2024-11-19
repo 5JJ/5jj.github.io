@@ -2,6 +2,7 @@ import Section from "../_components/about/Section";
 import { withLayout } from "../_components/LayoutWrapper";
 import Profile from "../_components/profile";
 import SkillSet from "../_components/skills/Skillset";
+import Timeline from "../_components/workExperience/Timeline";
 
 const About = () => {
   return (
@@ -17,7 +18,9 @@ const About = () => {
       </Section>
       {/** TODO: hobbies - accordion style */}
       <Section title="HOBBIES"></Section>
-      <Section title="WORK EXPERIENCE" highlight></Section>
+      <Section title="WORK EXPERIENCE" highlight>
+        <Timeline />
+      </Section>
     </div>
   );
 };
