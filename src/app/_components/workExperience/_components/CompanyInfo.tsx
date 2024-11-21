@@ -6,9 +6,9 @@ const CompanyInfo = (props: CompanyInfoProps) => {
   return (
     <div>
       <div>{logo && <Image src={logo} alt={`${companyName} logo`} />}</div>
-      <div className="flex items-center">
+      <div className="flex sm:items-center flex-col sm:flex-row items-start ">
         <span>{companyName}</span>
-        <span className="mx-10 bg-black_main/50 w-2 h-12 inline-block"></span>
+        <span className="mx-10 bg-black_main/50 w-2 h-12 hidden sm:inline-block"></span>
         <span>{workplace}</span>
       </div>
     </div>

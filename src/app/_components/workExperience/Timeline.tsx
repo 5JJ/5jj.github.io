@@ -28,10 +28,10 @@ const Timeline = () => {
               <TimelineItem text={timelineYear} />
             </div>
 
-            <div className="p-20 flex-auto">
+            <div className="px-10 py-20 sm:p-20 flex-auto break-all">
               <WorkExperience {...workExperience} />
             </div>
-            <div className="p-20 flex-shrink-0">
+            <div className="p-20 flex-shrink-0 pl-0">
               <button onClick={() => openPopup(index)}>
                 <LinkIcon />
               </button>

@@ -91,7 +91,7 @@ const Popup = (props: PopupProps) => {
 
   return (
     <Modal open={open} onClick={closePopup}>
-      <div className="pl-60 pr-20 py-30 w-full h-full relative">
+      <div className="pl-60 pr-20 py-30 w-full h-full relative ">
         <div
           onClick={closePopup}
           className="absolute right-5 bg-black_main rounded-[50%] p-6 top-15 z-10"
@@ -100,7 +100,7 @@ const Popup = (props: PopupProps) => {
             <CloseIcon width={28} height={28} fill={"white"} />
           </button>
         </div>
-        <div className="bg-white w-full h-full text-16 rounded-10 overflow-hidden flex flex-col ">
+        <div className="bg-white w-full h-full text-16 rounded-10 overflow-hidden flex flex-col shadow-sm">
           <div className="flex-auto">
             <PopupSlider
               onNextClicked={onNextClick}
@@ -139,7 +139,8 @@ const Popup = (props: PopupProps) => {
         </div>
       </div>
       <div className="absolute left-0 top-0 bg-black_main/80 h-full w-50">
-        <ul className="flex flex-col h-full">
+        {/** TODO: have to design for mobile */}
+        <ul className="flex flex-col h-full items-center">
           {data.map(({ timelineYear }, index) => (
             <li key={timelineYear} className="flex-auto">
               <TimelineItem
@@ -147,6 +148,7 @@ const Popup = (props: PopupProps) => {
                 text={timelineYear}
                 highlight={index === popupIndex}
                 onClick={() => onTimelineClick(index)}
+                showTextOnHover
               />
             </li>
           ))}

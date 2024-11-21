@@ -1,33 +1,41 @@
+"use client";
+
 import classNames from "classnames";
+import { useState } from "react";
+import { useTheme } from "../../theme/ThemeContext";
 
 type TimelineItemProps = {
-  onMouseEnter?: () => void;
-  onMouseLeave?: () => void;
   onClick?: () => void;
   size?: number;
   top?: number;
   highlight?: boolean;
   text: number | string;
+  showTextOnHover?: boolean;
 };
 
 const TimelineItem = (props: TimelineItemProps) => {
   const {
-    onMouseLeave,
-    onMouseEnter,
     onClick,
     text,
     size = 16,
     top = 20,
     highlight,
+    showTextOnHover,
   } = props;
 
+  const [showText, setShowText] = useState<boolean>(!showTextOnHover);
+  const { theme } = useTheme();
+
+  const onMouseEnter = () => {
+    setShowText(true);
+  };
+
+  const onMouseLeave = () => {
+    setShowText(false);
+  };
+
   return (
-    <div
-      className="relative h-full"
-      style={{ width: size }}
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
-    >
+    <div className="relative h-full" style={{ width: size }}>
       <div
         className={classNames("relative z-10 flex", {
           "cursor-pointer": !!onClick,
@@ -35,10 +43,12 @@ const TimelineItem = (props: TimelineItemProps) => {
         style={{ top }}
         onClick={onClick}
         role={onClick && "button"}
+        onMouseEnter={showTextOnHover ? onMouseEnter : undefined}
+        onMouseLeave={showTextOnHover ? onMouseLeave : undefined}
       >
         <span
           className={classNames(
-            "rounded-[50%] inline-block border-black_main self-center flex-shrink-0",
+            `hover:bg-${theme}-bg_from rounded-[50%] inline-block border-black_main self-center flex-shrink-0`,
             {
               "bg-white border-4": highlight,
               "border-8 bg-black_main": !highlight,
@@ -46,7 +56,17 @@ const TimelineItem = (props: TimelineItemProps) => {
           )}
           style={{ width: size, height: size }}
         />
-        <span className="pl-10">{text}</span>
+        {showText && (
+          <span
+            className={classNames("pl-10", {
+              "bg-black_main absolute text-white text-16 pr-10 rounded-4 ":
+                showTextOnHover,
+            })}
+            style={{ left: size + 2 }}
+          >
+            {text}
+          </span>
+        )}
       </div>
       <div
         className="border-2 absolute h-full top-0 border-black_main"
