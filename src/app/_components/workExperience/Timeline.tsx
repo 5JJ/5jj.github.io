@@ -3,7 +3,7 @@
 import WorkExperience from "./WorkExperience";
 import LinkIcon from "@icons/link_icon.svg";
 import Popup from "./_components/Popup";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import TimelineItem from "./_components/TimelineItem";
 import data from "./timelineData";
 
@@ -39,11 +39,13 @@ const Timeline = () => {
           </li>
         ))}
       </ul>
-      <Popup
-        open={selectedIndex !== -1}
-        closePopup={closePopup}
-        initialItemIndex={selectedIndex}
-      />
+      <Suspense fallback={null}>
+        <Popup
+          open={selectedIndex !== -1}
+          closePopup={closePopup}
+          initialItemIndex={selectedIndex}
+        />
+      </Suspense>
     </div>
   );
 };
