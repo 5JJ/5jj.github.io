@@ -2,6 +2,8 @@
 
 import classNames from "classnames";
 import React, {
+  memo,
+  RefObject,
   useEffect,
   useLayoutEffect,
   useMemo,
@@ -9,12 +11,18 @@ import React, {
   useState,
 } from "react";
 import { PropsWithChildren, ReactElement, ReactNode } from "react";
+import Portal from "./Portal";
 import Slider from "./slider";
+import ArrowRightIcon from "@icons/arrow_right_icon.svg";
 
 type PopupSliderProps = PropsWithChildren<{
   initalSlide?: number;
-  onPrevClicked?: () => void;
-  onNextClicked?: () => void;
+  showPagination?: boolean;
+  prevButtonEl?: RefObject<HTMLButtonElement>;
+  nextButtonEl?: RefObject<HTMLButtonElement>;
+  navigatorId?: string;
+  onPrevClicked?: (slideIndex: number) => void;
+  onNextClicked?: (slideIndex: number) => void;
 }>;
 
 function isPopupSliderItem(child: ReactElement<any, any>): boolean {
@@ -32,7 +40,16 @@ function getSlides(children?: ReactNode) {
 }
 
 const PopupSlider = (props: PopupSliderProps) => {
-  const { children, onNextClicked, onPrevClicked, initalSlide = 0 } = props;
+  const {
+    children,
+    onNextClicked,
+    onPrevClicked,
+    initalSlide = 0,
+    showPagination,
+    prevButtonEl,
+    nextButtonEl,
+    navigatorId,
+  } = props;
 
   const containerRef = useRef<null | HTMLDivElement>(null);
   const wrapperRef = useRef<null | HTMLDivElement>(null);
@@ -55,6 +72,14 @@ const PopupSlider = (props: PopupSliderProps) => {
     });
   }
 
+  const slideTo = (index: number) => {
+    currentSlideIndex.current = index;
+    setSliderInfo((prev) => ({
+      ...prev,
+      currentSlideIndex: currentSlideIndex.current,
+    }));
+  };
+
   const handlePrevClicked = () => {
     if (currentSlideIndex.current < 1) {
       return null;
@@ -62,28 +87,21 @@ const PopupSlider = (props: PopupSliderProps) => {
 
     sliderRef.current?.startTransition();
 
-    currentSlideIndex.current = currentSlideIndex.current - 1;
-    setSliderInfo((prev) => ({
-      ...prev,
-      currentSlideIndex: currentSlideIndex.current,
-    }));
-    onPrevClicked && onPrevClicked();
+    slideTo(currentSlideIndex.current - 1);
+
+    onPrevClicked && onPrevClicked(currentSlideIndex.current);
 
     sliderRef.current?.endTransition();
   };
 
   const handleNextClicked = () => {
-    if (currentSlideIndex.current >= slides.length - 1) {
-      return null;
-    }
+    if (currentSlideIndex.current >= slides.length - 1) return;
+
     sliderRef.current?.startTransition();
 
-    currentSlideIndex.current = currentSlideIndex.current + 1;
-    setSliderInfo((prev) => ({
-      ...prev,
-      currentSlideIndex: currentSlideIndex.current,
-    }));
-    onNextClicked && onNextClicked();
+    slideTo(currentSlideIndex.current + 1);
+
+    onNextClicked && onNextClicked(currentSlideIndex.current);
 
     sliderRef.current?.endTransition();
   };
@@ -105,6 +123,50 @@ const PopupSlider = (props: PopupSliderProps) => {
     return () => {
       // destory sliderRef.current;
       sliderRef.current?.destory();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (sliderInfo.currentSlideIndex !== initalSlide) {
+      slideTo(initalSlide);
+    }
+  }, [initalSlide]);
+
+  useEffect(() => {
+    function onPrevButtonClick(this: HTMLButtonElement) {
+      handlePrevClicked();
+
+      const el = this;
+      el.disabled = currentSlideIndex.current <= 0;
+
+      if (nextButtonEl?.current) {
+        nextButtonEl.current.disabled =
+          currentSlideIndex.current >= slides.length - 1;
+      }
+    }
+    function onNextButtonClick(this: HTMLButtonElement) {
+      handleNextClicked();
+
+      const el = this;
+      el.disabled = currentSlideIndex.current >= slides.length - 1;
+
+      if (prevButtonEl?.current) {
+        prevButtonEl.current.disabled = currentSlideIndex.current <= 0;
+      }
+    }
+    if (prevButtonEl && prevButtonEl.current) {
+      prevButtonEl.current.addEventListener("click", onPrevButtonClick);
+    }
+    if (nextButtonEl && nextButtonEl.current) {
+      nextButtonEl.current.addEventListener("click", onNextButtonClick);
+    }
+    return () => {
+      if (prevButtonEl && prevButtonEl.current) {
+        prevButtonEl.current.removeEventListener("click", onPrevButtonClick);
+      }
+      if (nextButtonEl && nextButtonEl.current) {
+        nextButtonEl.current.removeEventListener("click", onNextButtonClick);
+      }
     };
   }, []);
 
@@ -159,10 +221,12 @@ const PopupSlider = (props: PopupSliderProps) => {
 
   return (
     <div ref={containerRef} className="overflow-clip">
-      <div>
-        <span>{sliderInfo.currentSlideIndex + 1}</span>/
-        <span>{slides.length}</span>
-      </div>
+      {showPagination && (
+        <div>
+          <span>{sliderInfo.currentSlideIndex + 1}</span>/
+          <span>{slides.length}</span>
+        </div>
+      )}
       <div
         ref={wrapperRef}
         className={classNames("flex w-full h-full relative ", {
@@ -174,24 +238,40 @@ const PopupSlider = (props: PopupSliderProps) => {
       >
         {renderSlides(slides)}
       </div>
-      <div>
-        <button
-          onClick={handlePrevClicked}
-          disabled={sliderInfo.currentSlideIndex <= 0}
-        >
-          Prev
-        </button>
-      </div>
-      <div>
-        <button
-          onClick={handleNextClicked}
-          disabled={sliderInfo.currentSlideIndex >= slides.length - 1}
-        >
-          Next
-        </button>
-      </div>
+      {!!navigatorId && (
+        <Portal targetId={navigatorId}>
+          <div className="text-0">
+            <button
+              onClick={handlePrevClicked}
+              disabled={sliderInfo.currentSlideIndex <= 0}
+              className="group"
+            >
+              <ArrowRightIcon
+                width={20}
+                height={24}
+                className="rotate-180 group-disabled:stroke-gray-200"
+              />
+            </button>
+          </div>
+          <div className="text-0">
+            <button
+              onClick={handleNextClicked}
+              disabled={sliderInfo.currentSlideIndex >= slides.length - 1}
+              className="group"
+            >
+              <ArrowRightIcon
+                width={20}
+                height={24}
+                className="group-disabled:stroke-gray-200"
+              />
+            </button>
+          </div>
+        </Portal>
+      )}
     </div>
   );
 };
 
-export default PopupSlider;
+export default memo(PopupSlider, (prev, next) => {
+  return prev.initalSlide === next.initalSlide;
+});

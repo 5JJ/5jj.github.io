@@ -1,6 +1,6 @@
 "use client";
 
-import Themes, { defaultTheme, ThemeNames } from "@colors/theme";
+import Themes, { ColorTitle, defaultTheme, ThemeNames } from "@colors/theme";
 import {
   createContext,
   PropsWithChildren,
@@ -12,7 +12,8 @@ import {
 const ThemeContext = createContext<{
   theme: ThemeNames | null;
   selectTheme: ((theme: ThemeNames) => void) | null;
-}>({ theme: defaultTheme, selectTheme: null });
+  getThemeColor: (colorKey: ColorTitle) => undefined | string;
+}>({ theme: defaultTheme, selectTheme: null, getThemeColor: () => undefined });
 
 export const useTheme = () => useContext(ThemeContext);
 
@@ -23,6 +24,11 @@ export const ThemeProvider = (props: PropsWithChildren) => {
   const selectTheme = (newTheme: ThemeNames) => {
     window.localStorage.setItem("theme", newTheme);
     setTheme(newTheme);
+  };
+
+  const getThemeColor = (colorKey: ColorTitle) => {
+    const currentTheme = Themes.find(({ title }) => title === theme);
+    return currentTheme?.colors[colorKey];
   };
 
   useLayoutEffect(() => {
@@ -41,7 +47,7 @@ export const ThemeProvider = (props: PropsWithChildren) => {
   }, []);
 
   return (
-    <ThemeContext.Provider value={{ theme, selectTheme }}>
+    <ThemeContext.Provider value={{ theme, selectTheme, getThemeColor }}>
       {children}
     </ThemeContext.Provider>
   );
