@@ -17,11 +17,7 @@ const PopupSliderItem = forwardRef(
     const Tag = "div";
 
     return (
-      <Tag
-        {...rest}
-        ref={ref}
-        className="flex w-full items-center justify-center relative shrink-0"
-      >
+      <Tag {...rest} ref={ref} className="flex w-full relative shrink-0">
         {children}
       </Tag>
     );
