@@ -1,14 +1,14 @@
 import Skill from "./Skill";
-import SkillData from "@constants/skills";
+import skillData, { title as skillTitle } from "@constants/skills";
 
 type SkillSetProps = {
-  type: keyof typeof SkillData.title;
+  type: keyof typeof skillTitle;
 };
 
 const SkillSet = (props: SkillSetProps) => {
   const { type } = props;
 
-  const title = SkillData.title[type];
+  const title = skillTitle[type];
 
   return (
     <div className="flex p-10 flex-col sm:flex-row">
@@ -16,7 +16,7 @@ const SkillSet = (props: SkillSetProps) => {
         {title}
       </div>
       <ul className="flex flex-wrap items-center">
-        {SkillData[type].map((skill) => (
+        {skillData[type].map((skill) => (
           <li key={skill} className="m-2">
             <Skill text={skill} />
           </li>

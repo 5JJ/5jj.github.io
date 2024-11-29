@@ -1,7 +1,7 @@
-const languages = ["JavaScript (ES6+)", "TypeScript"];
+const languages = ["JavaScript", "TypeScript"] as const;
 const technologies = [
-  "Next.js",
-  "React.js",
+  "NextJS",
+  "React",
   "React Native",
   "Tailwind CSS",
   "SASS",
@@ -11,7 +11,14 @@ const technologies = [
   "Jest",
   "Storybook",
   "Firebase",
-];
+  "Ruby on Rails",
+  "React-testing-library",
+  "MySQL",
+  "JQuery",
+  "AngularJS",
+  "Bootstrap",
+] as const;
+
 const soft = [
   "Strong responsibility",
   "Positive attitude",
@@ -20,15 +27,16 @@ const soft = [
   "Clean and maintainable code",
 ];
 
-const title = {
+const skills = {
+  languages,
+  technologies,
+  soft,
+};
+
+export const title = {
   languages: "LANGUGAGES",
   technologies: "TECHNOLOGIES",
   soft: "SOFT SKILLS",
 } as const;
 
-export default {
-  languages,
-  technologies,
-  soft,
-  title,
-};
+export default skills;
