@@ -21,21 +21,22 @@ export const StackingPortal = (props: PortalProps) => {
   const [container, setContainer] = useState<HTMLDivElement | null>(null);
   const targetEl = document.getElementById(targetId);
 
-  if (!targetEl) return null;
-
   useEffect(() => {
     const newDiv = document.createElement("div");
-    targetEl.appendChild(newDiv);
-    setContainer(newDiv);
+
+    if (targetEl) {
+      targetEl.appendChild(newDiv);
+      setContainer(newDiv);
+    }
 
     return () => {
-      targetEl.removeChild(newDiv);
+      if (targetEl) {
+        targetEl.removeChild(newDiv);
+      }
     };
   }, []);
 
-  if (!container) return null;
-
-  return createPortal(children, container);
+  return container && createPortal(children, container);
 };
 
 export default Portal;
