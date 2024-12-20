@@ -1,14 +1,8 @@
 import { StaticImageData } from "next/image";
+import skills from "@constants/skills";
 
-type LanuageSkills = "JS" | "TypeScript";
-type TechnologySKills =
-  | "NextJs"
-  | "ReactJS"
-  | "Ruby on Rails"
-  | "Jest"
-  | "React-testing-library"
-  | "React Native"
-  | "Storybook";
+type LanuageSkills = (typeof skills)["languages"];
+type TechnologySKills = (typeof skills)["technologies"];
 
 export type ISOString = string;
 type Project = {
@@ -30,11 +24,12 @@ export type CompanyInfo = {
 export type WorkExperience = {
   companyInfo: CompanyInfo;
   summary: string;
-  usedSkills: (LanuageSkills | TechnologySKills)[];
+  usedSkills: (LanuageSkills[number] | TechnologySKills[number])[];
   position: string;
   projects: Project[];
   startDate: ISOString;
   endDate?: ISOString;
+  contractType: "full-time" | "contract";
 };
 
 export type Timeline = {

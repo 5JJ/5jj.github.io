@@ -12,6 +12,7 @@ import CompanyInfo from "./CompanyInfo";
 import { WorkExperience } from "../types";
 import Period from "./Period";
 import ArrowRightIcon from "@icons/arrow_right_icon.svg";
+import YearPicker from "../../yearPicker";
 
 type PopupProps = {
   open?: boolean;
@@ -43,6 +44,7 @@ const Popup = (props: PopupProps) => {
   const searchParams = useSearchParams();
 
   const [popupIndex, setPopupIndex] = useState<number>(initialItemIndex);
+  const [yearSelector, setYearSelector] = useState<boolean>(false);
   const nextButtonEl = useRef<HTMLButtonElement>(null);
   const prevButtonEl = useRef<HTMLButtonElement>(null);
 
@@ -65,6 +67,21 @@ const Popup = (props: PopupProps) => {
       scroll: false,
     });
     setPopupIndex(index);
+  };
+
+  const openYearSelector = () => {
+    setYearSelector(true);
+  };
+
+  const closeYearSelector = () => {
+    setYearSelector(false);
+  };
+
+  const onSelectYear = (year: number) => {
+    const index = data.findIndex(({ timelineYear }) => timelineYear === year);
+    setPopupIndex(index);
+
+    closeYearSelector();
   };
 
   useEffect(() => {
@@ -90,71 +107,91 @@ const Popup = (props: PopupProps) => {
   }, [initialItemIndex]);
 
   return (
-    <Modal open={open} onClick={closePopup}>
-      <div className="pl-60 pr-20 py-30 w-full h-full relative ">
-        <div
-          onClick={closePopup}
-          className="absolute right-5 bg-black_main rounded-[50%] p-6 top-15 z-10"
+    <>
+      <Modal open={open} onClick={closePopup}>
+        <div className="pl-20 pr-20 py-30 w-full h-full relative sm:pl-60">
+          <div
+            onClick={closePopup}
+            className="absolute right-5 bg-black_main rounded-[50%] p-6 top-15 z-10"
+          >
+            <button>
+              <CloseIcon width={28} height={28} fill={"white"} />
+            </button>
+          </div>
+          <div className="bg-white w-full h-full text-16 rounded-10 overflow-hidden flex flex-col shadow-sm">
+            <div className="flex-auto">
+              <PopupSlider
+                onNextClicked={onNextClick}
+                initalSlide={popupIndex}
+                prevButtonEl={prevButtonEl}
+                nextButtonEl={nextButtonEl}
+                onPrevClicked={onPrevClick}
+              >
+                {data.map(({ timelineYear, workExperience }) => (
+                  <PopupSliderItem key={timelineYear}>
+                    <PopupItem year={timelineYear} {...workExperience} />
+                  </PopupSliderItem>
+                ))}
+              </PopupSlider>
+            </div>
+            {/* <div id="sliderNavi" className="flex" /> */}
+            <div className="flex justify-center flex-shrink-0 py-20 items-center">
+              <button ref={prevButtonEl} className="p-4 group">
+                <ArrowRightIcon
+                  width={20}
+                  height={24}
+                  className="rotate-180 group-disabled:stroke-gray-200"
+                />
+              </button>
+              <span
+                className="cursor-pointer mx-10 sm:cursor-default"
+                onClick={openYearSelector}
+              >
+                {data[popupIndex]?.timelineYear}
+              </span>
+              <button ref={nextButtonEl} className="p-4 group">
+                <ArrowRightIcon
+                  width={20}
+                  height={24}
+                  className="group-disabled:stroke-gray-200"
+                />
+              </button>
+            </div>
+          </div>
+        </div>
+        <div className="absolute left-0 top-0 bg-black_main/80 h-full w-50 hidden sm:block">
+          {/** TODO: have to design for mobile */}
+          <ul className="flex flex-col h-full items-center">
+            {data.map(({ timelineYear }, index) => (
+              <li key={timelineYear} className="flex-auto">
+                <TimelineItem
+                  size={20}
+                  text={timelineYear}
+                  highlight={index === popupIndex}
+                  onClick={() => onTimelineClick(index)}
+                  showTextOnHover
+                />
+              </li>
+            ))}
+          </ul>
+        </div>
+      </Modal>
+      {yearSelector && (
+        <Modal
+          targetId="stackingContainer"
+          open={yearSelector}
+          stackingPortal
+          dimmed
+          onClick={closeYearSelector}
         >
-          <button>
-            <CloseIcon width={28} height={28} fill={"white"} />
-          </button>
-        </div>
-        <div className="bg-white w-full h-full text-16 rounded-10 overflow-hidden flex flex-col shadow-sm">
-          <div className="flex-auto">
-            <PopupSlider
-              onNextClicked={onNextClick}
-              initalSlide={popupIndex}
-              prevButtonEl={prevButtonEl}
-              nextButtonEl={nextButtonEl}
-              onPrevClicked={onPrevClick}
-            >
-              {data.map(({ timelineYear, workExperience }) => (
-                <PopupSliderItem key={timelineYear}>
-                  <PopupItem year={timelineYear} {...workExperience} />
-                </PopupSliderItem>
-              ))}
-            </PopupSlider>
-          </div>
-          {/* <div id="sliderNavi" className="flex" /> */}
-          <div className="flex justify-center flex-shrink-0 py-20 items-center">
-            <button ref={prevButtonEl} className="p-4 group">
-              <ArrowRightIcon
-                width={20}
-                height={24}
-                className="rotate-180 group-disabled:stroke-gray-200"
-              />
-            </button>
-            <span className="cursor-default mx-10">
-              {data[popupIndex]?.timelineYear}
-            </span>
-            <button ref={nextButtonEl} className="p-4 group">
-              <ArrowRightIcon
-                width={20}
-                height={24}
-                className="group-disabled:stroke-gray-200"
-              />
-            </button>
-          </div>
-        </div>
-      </div>
-      <div className="absolute left-0 top-0 bg-black_main/80 h-full w-50">
-        {/** TODO: have to design for mobile */}
-        <ul className="flex flex-col h-full items-center">
-          {data.map(({ timelineYear }, index) => (
-            <li key={timelineYear} className="flex-auto">
-              <TimelineItem
-                size={20}
-                text={timelineYear}
-                highlight={index === popupIndex}
-                onClick={() => onTimelineClick(index)}
-                showTextOnHover
-              />
-            </li>
-          ))}
-        </ul>
-      </div>
-    </Modal>
+          <YearPicker
+            years={data.map(({ timelineYear }) => timelineYear)}
+            onSelect={onSelectYear}
+            selectedYear={data[popupIndex]?.timelineYear}
+          />
+        </Modal>
+      )}
+    </>
   );
 };
 

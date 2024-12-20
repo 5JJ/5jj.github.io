@@ -21,6 +21,7 @@ const useLockBodyScroll = (condition: boolean | (() => boolean)) => {
   ) => {
     Object.keys(styles).forEach((styleName) => {
       const name = styleName as keyof T;
+      //NOTE: reference: https://github.com/Microsoft/TypeScript/issues/17827
       (<any>element.style)[styleName] = styles[name];
     });
   };
