@@ -24,6 +24,7 @@ export const LayoutWrapper = ({
           </main>
           <Footer />
           <div id="container" />
+          <div id="stackingContainer" />
         </Body>
       </ThemeProvider>
     </html>
