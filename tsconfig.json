@@ -17,6 +17,7 @@
         "name": "next"
       }
     ],
+    "target": "ES5",
     "paths": {
       "@constants/*": ["./src/constants/*"],
       "@images/*": ["./public/images/*"],
